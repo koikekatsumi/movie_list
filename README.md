@@ -1,4 +1,4 @@
-# 最終課題
+# 最終課題 
 このプロジェクトでは 映画に関するリストをSpring BootとMySQLを使ったCRUD処理を持つRESTfulなWebAPIを作成します
 # 開発環境
 - Java 17
