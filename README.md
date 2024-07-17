@@ -8,17 +8,19 @@
 ## 名前を全件取得するAPI
 - リクエスト
     - Method:GET
-    - URL:/
+    - URL:/movies
 - レスポンス
     - ステータスコード：200
     - ボディ：ユーザーのリストを Json 形式で返す
-```curl
+      ![スクリーンショット 2024-07-18 6 11 37](https://github.com/user-attachments/assets/eff49414-bb06-46e0-a714-55dee7adb3c4)
 
+```curl
+curl --location 'http://localhost:8080/movies' \
 ```
 ## クエリ文字列で指定した name のレコードを取得するAPI
 - リクエスト
     - Method:GET
-    - URL:/userNames?startsWith={name}
+    - URL:/userMovies?startsWith={name}
 - レスポンス
     - ステータスコード：200
     - ボディ：ユーザーのリストを Json 形式で返す
