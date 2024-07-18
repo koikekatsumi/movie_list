@@ -23,7 +23,7 @@ curl --location 'http://localhost:8080/movies' \
     - ステータスコード：200
     - ボディ：ユーザーのリストを Json 形式で返す
 ```curl
-curl --location 'http://localhost:8080/movies/search?startsWith=' \
+curl --location 'http://localhost:8080/movies/search?startsWith=%E3%83%A1' \
 ```
 ## 指定した ID のレコードを取得するAPI
 - リクエスト
