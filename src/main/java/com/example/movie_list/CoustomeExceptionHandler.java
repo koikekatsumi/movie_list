@@ -11,9 +11,9 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class CoustomeExceptionHandler {
-    @ExceptionHandler(UserNotFoundException.class)
+    @ExceptionHandler(MovieNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleNameNotFoundException(
-            UserNotFoundException e, HttpServletRequest request) {
+            MovieNotFoundException e, HttpServletRequest request) {
         Map body = Map.of(
                 "timestamp", ZonedDateTime.now().toString(),
                 "status", String.valueOf(HttpStatus.NOT_FOUND.value()),
