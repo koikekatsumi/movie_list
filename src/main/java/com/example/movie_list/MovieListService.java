@@ -12,7 +12,7 @@ public class MovieListService {
 
     public Movie findMovie(int id) {
         return movieListMapper.findById(id)
-                .orElseThrow(() -> new MovieNotFoundException("Movie with id " + id + " not found"));
+                .orElseThrow(() -> new MovieListNotFoundException("Movie with id " + id + " not found"));
     }
 }
 
