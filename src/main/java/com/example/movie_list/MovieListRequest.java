@@ -6,7 +6,7 @@ public class MovieListRequest {
     private String name;
     private Date releaseDate;
     private String leadActor;
-    private Integer boxOffice;
+    private int boxOffice;
 
     public MovieListRequest(String name, Date releaseDate, String leadActor, int boxOffice) {
         this.name = name;
@@ -43,7 +43,7 @@ public class MovieListRequest {
         this.leadActor = leadActor;
     }
 
-    public void setBoxOffice(Integer boxOffice) {
+    public void setBoxOffice(int boxOffice) {
         this.boxOffice = boxOffice;
     }
 }

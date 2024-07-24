@@ -16,7 +16,7 @@ public interface MovieListMapper {
     @Select("SELECT * FROM movies WHERE id =#{id}")
     Optional<MovieList> findById(int id);
 
-    @Insert("INSERT INTO movies (name, releaseDate, leadActor, boxOffice) VALUES (#{name}, #{releaseDate}, #{leadActor},#{boxOffice})")
+    @Insert("INSERT INTO movies (name, release_Date, lead_Actor, box_Office) VALUES (#{name}, #{releaseDate}, #{leadActor},#{boxOffice})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(MovieList movieList);
 }

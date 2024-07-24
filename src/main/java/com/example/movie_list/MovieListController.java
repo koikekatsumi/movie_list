@@ -13,7 +13,7 @@ import java.net.URI;
 
 @RestController
 public class MovieListController {
-    private final MovieListService movieListService;
+    private MovieListService movieListService;
 
     @Autowired
     public MovieListController(MovieListService movieListService) {
@@ -29,7 +29,7 @@ public class MovieListController {
     public ResponseEntity<MovieListResponse> insert(@RequestBody MovieListRequest movieListRequest, UriComponentsBuilder uriBuilder) {
         MovieList movieList = movieListService.insert(movieListRequest.getName(), movieListRequest.getReleaseDate(), movieListRequest.getLeadActor(), movieListRequest.getBoxOffice());
         URI location = uriBuilder.path("/movies/{id}").buildAndExpand(movieList.getId()).toUri();
-        MovieListResponse response = new MovieListResponse("New movie is created");
-        return ResponseEntity.created(location).body(response);
+        MovieListResponse newMovie = new MovieListResponse("New movie is created");
+        return ResponseEntity.created(location).body(newMovie);
     }
 }
