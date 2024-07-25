@@ -13,15 +13,15 @@ public class MovieListService {
         this.movieListMapper = movieListMapper;
     }
 
-    public MovieList findMovie(int id) {
+    public Movie findMovie(int id) {
         return movieListMapper.findById(id)
                 .orElseThrow(() -> new MovieListNotFoundException("Movie with id " + id + " not found"));
     }
 
-    public MovieList insert(String name, Date releaseDate, String leadActor, Integer boxOffice) {
-        MovieList movieList = new MovieList(name, releaseDate, leadActor, boxOffice);
-        movieListMapper.insert(movieList);
-        return movieList;
+    public Movie insert(String name, Date releaseDate, String leadActor, Integer boxOffice) {
+        Movie movie = new Movie(null, name, releaseDate, leadActor, boxOffice);
+        movieListMapper.insert(movie);
+        return movie;
     }
 }
 

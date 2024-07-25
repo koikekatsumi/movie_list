@@ -11,12 +11,12 @@ import java.util.Optional;
 @Mapper
 public interface MovieListMapper {
     @Select("SELECT * FROM movies")
-    List<MovieList> findAll();
+    List<Movie> findAll();
 
     @Select("SELECT * FROM movies WHERE id =#{id}")
-    Optional<MovieList> findById(int id);
+    Optional<Movie> findById(int id);
 
     @Insert("INSERT INTO movies (name, release_Date, lead_Actor, box_Office) VALUES (#{name}, #{releaseDate}, #{leadActor},#{boxOffice})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    void insert(MovieList movieList);
+    void insert(Movie movie);
 }

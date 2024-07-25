@@ -2,7 +2,7 @@ package com.example.movie_list;
 
 import java.util.Date;
 
-public class MovieList {
+public class Movie {
 
     private Integer id;
     private String name;
@@ -10,7 +10,7 @@ public class MovieList {
     private String leadActor;
     private Integer boxOffice;
 
-    public MovieList(Integer id, String name, Date releaseDate, String leadActor, Integer boxOffice) {
+    public Movie(Integer id, String name, Date releaseDate, String leadActor, Integer boxOffice) {
         this.id = id;
         this.name = name;
         this.releaseDate = releaseDate;
@@ -18,7 +18,7 @@ public class MovieList {
         this.boxOffice = boxOffice;
     }
 
-    public MovieList(String name, Date releaseDate, String leadActor, Integer boxOffice) {
+    public Movie(String name, Date releaseDate, String leadActor, Integer boxOffice) {
         this.id = null;
         this.name = name;
         this.releaseDate = releaseDate;
@@ -51,17 +51,14 @@ public class MovieList {
     }
 
     public void setName(String name) {
-
         this.name = name;
     }
 
     public void setReleaseDate(Date releaseDate) {
-
         this.releaseDate = releaseDate;
     }
 
     public void setLeadActor(String leadActor) {
-
         this.leadActor = leadActor;
     }
 
@@ -73,4 +70,3 @@ public class MovieList {
         }
     }
 }
-

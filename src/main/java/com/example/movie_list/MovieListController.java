@@ -21,14 +21,14 @@ public class MovieListController {
     }
 
     @GetMapping("/movies/{id}")
-    public MovieList findMovie(@PathVariable("id") int id) {
+    public Movie findMovie(@PathVariable("id") int id) {
         return movieListService.findMovie(id);
     }
 
     @PostMapping("/movies")
     public ResponseEntity<MovieListResponse> insert(@RequestBody MovieListRequest movieListRequest, UriComponentsBuilder uriBuilder) {
-        MovieList movieList = movieListService.insert(movieListRequest.getName(), movieListRequest.getReleaseDate(), movieListRequest.getLeadActor(), movieListRequest.getBoxOffice());
-        URI location = uriBuilder.path("/movies/{id}").buildAndExpand(movieList.getId()).toUri();
+        Movie movie = movieListService.insert(movieListRequest.getName(), movieListRequest.getReleaseDate(), movieListRequest.getLeadActor(), movieListRequest.getBoxOffice());
+        URI location = uriBuilder.path("/movies/{id}").buildAndExpand(movie.getId()).toUri();
         MovieListResponse newMovie = new MovieListResponse("New movie is created");
         return ResponseEntity.created(location).body(newMovie);
     }
