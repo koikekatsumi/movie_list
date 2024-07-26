@@ -4,15 +4,13 @@ import java.util.Date;
 
 public class Movie {
 
-    private int id;
+    private Integer id;
     private String name;
-
     private Date releaseDate;
-
     private String leadActor;
-    private int boxOffice;
+    private Integer boxOffice;
 
-    public Movie(int id, String name, Date releaseDate, String leadActor, int boxOffice) {
+    public Movie(Integer id, String name, Date releaseDate, String leadActor, Integer boxOffice) {
         this.id = id;
         this.name = name;
         this.releaseDate = releaseDate;
@@ -20,7 +18,15 @@ public class Movie {
         this.boxOffice = boxOffice;
     }
 
-    public int getId() {
+    public Movie(String name, Date releaseDate, String leadActor, Integer boxOffice) {
+        this.id = null;
+        this.name = name;
+        this.releaseDate = releaseDate;
+        this.leadActor = leadActor;
+        this.boxOffice = boxOffice;
+    }
+
+    public Integer getId() {
         return id;
     }
 
@@ -36,11 +42,11 @@ public class Movie {
         return leadActor;
     }
 
-    public int getBoxOffice() {
+    public Integer getBoxOffice() {
         return boxOffice;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -56,7 +62,7 @@ public class Movie {
         this.leadActor = leadActor;
     }
 
-    public void setBoxOffice(int boxOffice) {
+    public void setBoxOffice(Integer boxOffice) {
         if (boxOffice >= 0) {
             this.boxOffice = boxOffice;
         } else {
@@ -64,4 +70,3 @@ public class Movie {
         }
     }
 }
-
