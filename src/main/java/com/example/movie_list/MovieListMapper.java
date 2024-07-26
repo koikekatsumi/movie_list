@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,4 +20,8 @@ public interface MovieListMapper {
     @Insert("INSERT INTO movies (name, release_Date, lead_Actor, box_Office) VALUES (#{name}, #{releaseDate}, #{leadActor},#{boxOffice})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(Movie movie);
+
+    @Update("UPDATE movies SET name = #{name}, release_Date = #{releaseDate}, lead_Actor = #{leadActor}, box_Office = #{boxOffice} WHERE id = #{id}")
+    void update(Movie movie);
+
 }

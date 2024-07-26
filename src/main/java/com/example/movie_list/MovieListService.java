@@ -3,6 +3,7 @@ package com.example.movie_list;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class MovieListService {
@@ -23,5 +24,20 @@ public class MovieListService {
         movieListMapper.insert(movie);
         return movie;
     }
+
+    public void update(Integer id, String name, Date releaseDate, String leadActor, int boxOffice) {
+        Optional<Movie> existingMovie = movieListMapper.findById(id);
+        if (!existingMovie.isPresent()) {
+            throw new MovieListNotFoundException("Movie not found");
+        }
+        Movie movie = existingMovie.get();
+        movie.setName(name);
+        movie.setReleaseDate(releaseDate);
+        movie.setLeadActor(leadActor);
+        movie.setBoxOffice(boxOffice);
+        movieListMapper.update(movie);
+    }
+
+
 }
 
