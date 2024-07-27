@@ -1,4 +1,4 @@
-package com.example.movie_list;
+package com.example.movie_list.entity;
 
 import java.util.Date;
 

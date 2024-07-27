@@ -1,7 +1,10 @@
-package com.example.movie_list;
+package com.example.movie_list.Controller;
 
+import com.example.movie_list.Service.MovieListService;
+import com.example.movie_list.entity.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,4 +43,14 @@ public class MovieListController {
         MovieListResponse updateMovie = new MovieListResponse("movie updated");
         return ResponseEntity.ok(updateMovie);
     }
+
+
+    @DeleteMapping("/movies/{id}")
+    public ResponseEntity<MovieListResponse> delete(@PathVariable("id") Integer id) {
+        movieListService.delete(id);
+        MovieListResponse body = new MovieListResponse("movie deleted");
+        return ResponseEntity.ok(body);
+    }
+
+
 }
