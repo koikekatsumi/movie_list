@@ -12,5 +12,4 @@ public class MovieListRequest {
     private Date releaseDate;
     private String leadActor;
     private int boxOffice;
-
 }

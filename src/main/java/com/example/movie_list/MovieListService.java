@@ -23,5 +23,15 @@ public class MovieListService {
         movieListMapper.insert(movie);
         return movie;
     }
-}
 
+    public void update(Integer id, String name, Date releaseDate, String leadActor, int boxOffice) {
+        Movie existingMovie = movieListMapper.findById(id)
+                .orElseThrow(() -> new MovieListNotFoundException("Movie with id " + id + " not found"));
+
+        existingMovie.setName(name);
+        existingMovie.setReleaseDate(releaseDate);
+        existingMovie.setLeadActor(leadActor);
+        existingMovie.setBoxOffice(boxOffice);
+        movieListMapper.update(existingMovie);
+    }
+}
