@@ -1,5 +1,8 @@
-package com.example.movie_list;
+package com.example.movie_list.Service;
 
+import com.example.movie_list.MovieListNotFoundException;
+import com.example.movie_list.dao.MovieListMapper;
+import com.example.movie_list.entity.Movie;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -33,5 +36,11 @@ public class MovieListService {
         existingMovie.setLeadActor(leadActor);
         existingMovie.setBoxOffice(boxOffice);
         movieListMapper.update(existingMovie);
+    }
+
+    public void delete(Integer id) {
+        Movie movie = movieListMapper.findById(id)
+                .orElseThrow(() -> new MovieListNotFoundException("Movie with id " + id + " not found"));
+        movieListMapper.delete(id);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.movie_list;
+package com.example.movie_list.Controller;
 
 import lombok.Getter;
 import lombok.Setter;

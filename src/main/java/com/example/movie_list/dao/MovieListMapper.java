@@ -1,5 +1,7 @@
-package com.example.movie_list;
+package com.example.movie_list.dao;
 
+import com.example.movie_list.entity.Movie;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
@@ -23,5 +25,8 @@ public interface MovieListMapper {
 
     @Update("UPDATE movies SET name = #{name}, release_Date = #{releaseDate}, lead_Actor = #{leadActor}, box_Office = #{boxOffice} WHERE id = #{id}")
     void update(Movie movie);
+
+    @Delete("DELETE FROM movies WHERE id = #{id}")
+    void delete(Integer id);
 
 }
