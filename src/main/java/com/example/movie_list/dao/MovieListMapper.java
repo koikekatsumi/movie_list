@@ -19,6 +19,9 @@ public interface MovieListMapper {
     @Select("SELECT * FROM movies WHERE id =#{id}")
     Optional<Movie> findById(int id);
 
+    @Select("SELECT * FROM movies WHERE name = #{name}")
+    Optional<Movie> findByName(String name);
+
     @Insert("INSERT INTO movies (name, release_Date, lead_Actor, box_Office) VALUES (#{name}, #{releaseDate}, #{leadActor},#{boxOffice})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insert(Movie movie);
@@ -28,5 +31,4 @@ public interface MovieListMapper {
 
     @Delete("DELETE FROM movies WHERE id = #{id}")
     void delete(Integer id);
-
 }

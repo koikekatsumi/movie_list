@@ -5,4 +5,3 @@ public class MovieListNotFoundException extends RuntimeException {
         super(message);
     }
 }
-
