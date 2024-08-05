@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -16,7 +16,7 @@ public class MovieListRequest {
     private String name;
 
     @NotNull
-    private Date releaseDate;
+    private LocalDate releaseDate;
 
     @NotBlank
     private String leadActor;

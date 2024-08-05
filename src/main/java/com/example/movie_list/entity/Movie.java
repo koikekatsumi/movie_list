@@ -1,16 +1,17 @@
 package com.example.movie_list.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.Objects;
 
 public class Movie {
 
     private Integer id;
     private String name;
-    private Date releaseDate;
+    private LocalDate releaseDate;
     private String leadActor;
-    private Integer boxOffice;
+    private int boxOffice;
 
-    public Movie(Integer id, String name, Date releaseDate, String leadActor, Integer boxOffice) {
+    public Movie(Integer id, String name, LocalDate releaseDate, String leadActor, Integer boxOffice) {
         this.id = id;
         this.name = name;
         this.releaseDate = releaseDate;
@@ -18,7 +19,7 @@ public class Movie {
         this.boxOffice = boxOffice;
     }
 
-    public Movie(String name, Date releaseDate, String leadActor, Integer boxOffice) {
+    public Movie(String name, LocalDate releaseDate, String leadActor, Integer boxOffice) {
         this.id = null;
         this.name = name;
         this.releaseDate = releaseDate;
@@ -34,7 +35,7 @@ public class Movie {
         return name;
     }
 
-    public Date getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
@@ -54,7 +55,7 @@ public class Movie {
         this.name = name;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
 
@@ -68,5 +69,27 @@ public class Movie {
         } else {
             throw new IllegalArgumentException("興行収入は、正の数0以上でなければなりません。");
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Movie movie = (Movie) o;
+        return boxOffice == movie.boxOffice && Objects.equals(id, movie.id) &&
+                Objects.equals(name, movie.name) &&
+                Objects.equals(releaseDate, movie.releaseDate) &&
+                Objects.equals(leadActor, movie.leadActor) &&
+                Objects.equals(boxOffice, movie.boxOffice);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, releaseDate, leadActor, boxOffice);
+    }
+
+    @Override
+    public String toString() {
+        return "{\"id\":" + id + ",\"name\":\"" + name + "\"releaseDate\":" + releaseDate + "\"leadActor\":" + leadActor + "\"boxOffice\":" + boxOffice + "\"}";
     }
 }
