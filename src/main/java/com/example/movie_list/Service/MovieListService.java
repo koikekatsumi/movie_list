@@ -73,7 +73,5 @@ public class MovieListService {
     public Movie getMovieById(int id) {
         return movieListMapper.findById(id)
                 .orElseThrow(() -> new MovieListNotFoundException("Not Found"));
-        // Optional<Movie> sweetOptional = movieListMapper.findById(id);
-        // return sweetOptional.orElseThrow(() -> new MovieListNotFoundException("Not Found"));
     }
 }
