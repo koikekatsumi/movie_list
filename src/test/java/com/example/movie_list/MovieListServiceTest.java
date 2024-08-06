@@ -14,9 +14,13 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class MovieListServiceTest {
 
@@ -31,7 +35,6 @@ public class MovieListServiceTest {
         movieListMapper = mock(MovieListMapper.class);
         movieListService = new MovieListService(movieListMapper);
     }
-
 
     @Test
     public void 存在する映画リストのIDを指定したとき正常に映画リストが返されること() throws Exception {
@@ -55,12 +58,38 @@ public class MovieListServiceTest {
         verify(movieListMapper).findAll();
     }
 
-
     @Test
     public void 存在しないIDを指定した場合は例外が発生すること() {
         doReturn(Optional.empty()).when(movieListMapper).findById(0);
         assertThatThrownBy(() -> movieListService.findMovie(0))
                 .isInstanceOf(MovieListNotFoundException.class);
         verify(movieListMapper).findById(0);
+    }
+
+    @Test
+    public void 新しい映画リストを登録すること() {
+        Movie movie = new Movie("パイレーツ　オブ　カリビアン", LocalDate.of(2003, 07, 18), "ジョニー　デップ", 654264015);
+        assertThat(movieListService.insert("パイレーツ　オブ　カリビアン", LocalDate.of(2003, 07, 18), "ジョニー　デップ", 654264015)).isEqualTo(movie);
+        verify(movieListMapper).insert(movie);
+    }
+
+    @Test
+    public void 存在する映画リストを削除すること() {
+        int validId = 4;
+        Movie existingMovie = new Movie(4, "バック　トゥ　ザ　フューチャー", LocalDate.of(1985, 12, 7), "マイケル　J　フォックス", 210609762);
+        when(movieListMapper.findById(4)).thenReturn(Optional.of(existingMovie));
+        movieListService.delete(validId);
+        verify(movieListMapper).delete(validId);
+    }
+
+    @Test
+    public void 指定したIDに映画リストがない場合は削除できないこと() {
+        int invalidId = 100;
+        when(movieListMapper.findById(invalidId)).thenReturn(Optional.empty());
+        Exception exception = assertThrows(MovieListNotFoundException.class, () -> {
+            movieListService.delete(100);
+        });
+        assertEquals("Movie with id " + invalidId + " not found", exception.getMessage());
+        verify(movieListMapper, never()).delete(invalidId);
     }
 }
