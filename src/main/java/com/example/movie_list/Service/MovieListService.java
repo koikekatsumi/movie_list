@@ -7,7 +7,8 @@ import com.example.movie_list.dao.MovieListMapper;
 import com.example.movie_list.entity.Movie;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,12 +20,16 @@ public class MovieListService {
         this.movieListMapper = movieListMapper;
     }
 
+    public List<Movie> findAll() {
+        return movieListMapper.findAll();
+    }
+
     public Movie findMovie(int id) {
         return movieListMapper.findById(id)
                 .orElseThrow(() -> new MovieListNotFoundException("Movie with id " + id + " not found"));
     }
 
-    public Movie insert(String name, Date releaseDate, String leadActor, Integer boxOffice) {
+    public Movie insert(String name, LocalDate releaseDate, String leadActor, Integer boxOffice) {
         if (name == null || name.trim().isEmpty() || leadActor == null || leadActor.trim().isEmpty()) {
             throw new MovieListValidationException("Name and leadActor must not be empty");
         }
@@ -42,7 +47,7 @@ public class MovieListService {
         return movie;
     }
 
-    public void update(Integer id, String name, Date releaseDate, String leadActor, int boxOffice) {
+    public void update(Integer id, String name, LocalDate releaseDate, String leadActor, int boxOffice) {
         Movie existingMovie = movieListMapper.findById(id)
                 .orElseThrow(() -> new MovieListNotFoundException("Movie with id " + id + " not found"));
 
@@ -63,5 +68,10 @@ public class MovieListService {
         Movie movie = movieListMapper.findById(id)
                 .orElseThrow(() -> new MovieListNotFoundException("Movie with id " + id + " not found"));
         movieListMapper.delete(id);
+    }
+
+    public Movie getMovieById(int id) {
+        return movieListMapper.findById(id)
+                .orElseThrow(() -> new MovieListNotFoundException("Not Found"));
     }
 }
