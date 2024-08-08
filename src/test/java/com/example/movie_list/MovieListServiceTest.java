@@ -118,7 +118,6 @@ public class MovieListServiceTest {
                 .hasMessageContaining("Movie with id " + invalidId + " not found");
         verify(movieListMapper, times(1)).findById(invalidId);
         verify(movieListMapper, times(0)).update(any(Movie.class));
-
     }
 
     @Test
@@ -129,20 +128,15 @@ public class MovieListServiceTest {
         String leadActor = "マコーレ　カリキン";
         int boxOffice = 476684675;
 
-        Movie existingMovie = new Movie(invalidId, "ホーム　アローン", LocalDate.of(1991, 6, 22), "マコーレ　カリキン", 476684675);
-        Movie duplicatedMovie = new Movie(2, name, releaseDate, leadActor, boxOffice);
-
+        Movie existingMovie = new Movie(invalidId, name, releaseDate, leadActor, boxOffice);
+        Movie duplicatedMovie = new Movie(2, "ホーム　アローン", LocalDate.of(1991, 6, 22), "マコーレ　カリキン", 476684675);
         when(movieListMapper.findById(invalidId)).thenReturn(Optional.of(existingMovie));
         when(movieListMapper.findByName(name)).thenReturn(Optional.of(duplicatedMovie));
-
         doNothing().when(movieListMapper).update(any(Movie.class));
-
         Exception exception = assertThrows(MovieListDuplicatedException.class, () -> {
             movieListService.update(invalidId, name, releaseDate, leadActor, boxOffice);
         });
-
         assertEquals("Movie already exists", exception.getMessage());
-
         verify(movieListMapper, never()).update(any(Movie.class));
     }
 }
