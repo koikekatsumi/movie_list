@@ -47,7 +47,7 @@ public class MovieListService {
         return movie;
     }
 
-    public void update(Integer id, String name, LocalDate releaseDate, String leadActor, int boxOffice) {
+    public Movie update(Integer id, String name, LocalDate releaseDate, String leadActor, int boxOffice) {
         Movie existingMovie = movieListMapper.findById(id)
                 .orElseThrow(() -> new MovieListNotFoundException("Movie with id " + id + " not found"));
 
@@ -62,6 +62,7 @@ public class MovieListService {
         existingMovie.setLeadActor(leadActor);
         existingMovie.setBoxOffice(boxOffice);
         movieListMapper.update(existingMovie);
+        return existingMovie;
     }
 
     public void delete(Integer id) {
