@@ -120,4 +120,29 @@ public class MovieListServiceTest {
         verify(movieListMapper, times(0)).update(any(Movie.class));
 
     }
+
+    @Test
+    public void 別のIDで既に登録されている映画リストを更新しようとした場合更新できないこと() {
+        int invalidId = 1;
+        String name = "ホーム　アローン";
+        LocalDate releaseDate = LocalDate.of(1991, 6, 22);
+        String leadActor = "マコーレ　カリキン";
+        int boxOffice = 476684675;
+
+        Movie existingMovie = new Movie(invalidId, "ホーム　アローン", LocalDate.of(1991, 6, 22), "マコーレ　カリキン", 476684675);
+        Movie duplicatedMovie = new Movie(2, name, releaseDate, leadActor, boxOffice);
+
+        when(movieListMapper.findById(invalidId)).thenReturn(Optional.of(existingMovie));
+        when(movieListMapper.findByName(name)).thenReturn(Optional.of(duplicatedMovie));
+
+        doNothing().when(movieListMapper).update(any(Movie.class));
+
+        Exception exception = assertThrows(MovieListDuplicatedException.class, () -> {
+            movieListService.update(invalidId, name, releaseDate, leadActor, boxOffice);
+        });
+
+        assertEquals("Movie already exists", exception.getMessage());
+
+        verify(movieListMapper, never()).update(any(Movie.class));
+    }
 }
