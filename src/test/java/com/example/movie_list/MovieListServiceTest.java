@@ -129,7 +129,7 @@ public class MovieListServiceTest {
         int boxOffice = 476684675;
 
         Movie existingMovie = new Movie(invalidId, name, releaseDate, leadActor, boxOffice);
-        Movie duplicatedMovie = new Movie(2, "ホーム　アローン", LocalDate.of(1991, 6, 22), "マコーレ　カリキン", 476684675);
+        Movie duplicatedMovie = new Movie(2, name, releaseDate, leadActor, boxOffice);
         when(movieListMapper.findById(invalidId)).thenReturn(Optional.of(existingMovie));
         when(movieListMapper.findByName(name)).thenReturn(Optional.of(duplicatedMovie));
         doNothing().when(movieListMapper).update(any(Movie.class));
