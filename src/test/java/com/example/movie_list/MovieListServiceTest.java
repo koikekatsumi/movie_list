@@ -16,10 +16,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -94,5 +96,47 @@ public class MovieListServiceTest {
         });
         assertEquals("Movie with id " + invalidId + " not found", exception.getMessage());
         verify(movieListMapper, never()).delete(invalidId);
+    }
+
+    @Test
+    public void 映画リストが正常に映画リストが更新されること() {
+        Movie existingMovie = new Movie(4, "バック　トゥ　ザ　フューチャー2", LocalDate.of(1990, 1, 7), "マイケル　J　フォックス", 310609762);
+        doReturn(Optional.of(existingMovie)).when(movieListMapper).findById(4);
+        doNothing().when(movieListMapper).update(any(Movie.class));
+        Movie actual = movieListService.update(4, "バック　トゥ　ザ　フューチャー", LocalDate.of(1985, 12, 7), "マイケル　J　フォックス", 210609762);
+        assertThat(actual).isEqualTo(existingMovie);
+        verify(movieListMapper, times(1)).findById(4);
+        verify(movieListMapper, times(1)).update(existingMovie);
+    }
+
+    @Test
+    public void 存在しないIDの映画リストを更新しようとした時に例外が発生すること() {
+        int invalidId = 100;
+        doReturn(Optional.empty()).when(movieListMapper).findById(invalidId);
+        assertThatThrownBy(() -> movieListService.update(invalidId, "ターミネーター", LocalDate.of(1985, 8, 7), "アーノルド　シュワルツネガー", 503030035))
+                .isInstanceOf(MovieListNotFoundException.class)
+                .hasMessageContaining("Movie with id " + invalidId + " not found");
+        verify(movieListMapper, times(1)).findById(invalidId);
+        verify(movieListMapper, times(0)).update(any(Movie.class));
+    }
+
+    @Test
+    public void 別のIDで既に登録されている映画リストを更新しようとした場合更新できないこと() {
+        int invalidId = 1;
+        String name = "ホーム　アローン";
+        LocalDate releaseDate = LocalDate.of(1991, 6, 22);
+        String leadActor = "マコーレ　カリキン";
+        int boxOffice = 476684675;
+
+        Movie existingMovie = new Movie(invalidId, name, releaseDate, leadActor, boxOffice);
+        Movie duplicatedMovie = new Movie(2, name, releaseDate, leadActor, boxOffice);
+        when(movieListMapper.findById(invalidId)).thenReturn(Optional.of(existingMovie));
+        when(movieListMapper.findByName(name)).thenReturn(Optional.of(duplicatedMovie));
+        doNothing().when(movieListMapper).update(any(Movie.class));
+        Exception exception = assertThrows(MovieListDuplicatedException.class, () -> {
+            movieListService.update(invalidId, name, releaseDate, leadActor, boxOffice);
+        });
+        assertEquals("Movie already exists", exception.getMessage());
+        verify(movieListMapper, never()).update(any(Movie.class));
     }
 }
