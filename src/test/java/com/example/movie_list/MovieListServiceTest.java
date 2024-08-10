@@ -49,9 +49,9 @@ public class MovieListServiceTest {
     @Test
     public void すべての映画リストが取得できること() {
         List<Movie> movie = List.of(
-                new Movie(1, "ホーム　アローン", LocalDate.of(1991, 06, 22), "マコーレ　カリキン", 476684675),
+                new Movie(1, "ホーム　アローン", LocalDate.of(1991, 6, 22), "マコーレ　カリキン", 476684675),
                 new Movie(2, "タイタニック", LocalDate.of(1997, 12, 20), "レオナルド　ディカプリオ", 658532551),
-                new Movie(3, "メリーに首ったけ", LocalDate.of(1999, 01, 30), "キャメロン　ディアス", 369884651),
+                new Movie(3, "メリーに首ったけ", LocalDate.of(1999, 1, 30), "キャメロン　ディアス", 369884651),
                 new Movie(4, "バック　トゥ　ザ　フューチャー", LocalDate.of(1985, 12, 07), "マイケル　J　フォックス", 210609762)
         );
         doReturn(movie).when(movieListMapper).findAll();

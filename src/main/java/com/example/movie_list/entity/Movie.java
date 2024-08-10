@@ -76,16 +76,28 @@ public class Movie {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Movie movie = (Movie) o;
-        return boxOffice == movie.boxOffice && Objects.equals(id, movie.id) &&
-                Objects.equals(name, movie.name) &&
-                Objects.equals(releaseDate, movie.releaseDate) &&
-                Objects.equals(leadActor, movie.leadActor) &&
-                Objects.equals(boxOffice, movie.boxOffice);
+        if (boxOffice != movie.boxOffice) return false;
+        if (!Objects.equals(id, movie.id)) return false;
+        if (!Objects.equals(name, movie.name)) return false;
+        if (!Objects.equals(releaseDate, movie.releaseDate)) return false;
+        return Objects.equals(leadActor, movie.leadActor);
+
+
+        //  return boxOffice == movie.boxOffice && Objects.equals(id, movie.id) &&
+        //         Objects.equals(name, movie.name) &&
+        //        Objects.equals(releaseDate, movie.releaseDate) &&
+        //      Objects.equals(leadActor, movie.leadActor) &&
+        //     Objects.equals(boxOffice, movie.boxOffice);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, releaseDate, leadActor, boxOffice);
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (releaseDate != null ? releaseDate.hashCode() : 0);
+        result = 31 * result + (leadActor != null ? leadActor.hashCode() : 0);
+        result = 31 * result + boxOffice;
+        return result;
     }
 
     @Override

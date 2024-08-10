@@ -1,0 +1,21 @@
+movies:
+  - id: 1
+    name: "ホーム アローン"
+    release_date: 1991-6-22
+    lead_actor: "マコーレ カルキン"
+    box_office: 476684675
+  - id: 2
+    name: "タイタニック"
+    release_date: 1997-12-20
+    lead_actor: "レオナルド ディカプリオ"
+    box_office: 658532551
+  - id: 3
+    name: "メリーに首ったけ"
+    release_date: 1999-01-30
+    lead_actor: "キャメロン ディアス"
+    box_office: 369884651
+  - id: 4
+    name: "バック  トゥ ザ フューチャー"
+    release_date: 1985-12-7
+    lead_actor: "マイケル J フォックス"
+    box_office: 210609762
