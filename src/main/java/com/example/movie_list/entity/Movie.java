@@ -95,6 +95,15 @@ public class Movie {
 
     @Override
     public String toString() {
-        return "{\"id\":" + id + ",\"name\":\"" + name + "\"releaseDate\":" + releaseDate + "\"leadActor\":" + leadActor + "\"boxOffice\":" + boxOffice + "\"}";
+        return """
+                {
+                    "id": %d,
+                    "name": "%s",
+                    "releaseDate": "%s",
+                    "leadActor": "%s",
+                    "boxOffice": %d
+                }
+                """.formatted(id, name, releaseDate, leadActor, boxOffice);
     }
+
 }
