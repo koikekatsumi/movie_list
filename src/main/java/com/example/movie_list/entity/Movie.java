@@ -81,13 +81,6 @@ public class Movie {
         if (!Objects.equals(name, movie.name)) return false;
         if (!Objects.equals(releaseDate, movie.releaseDate)) return false;
         return Objects.equals(leadActor, movie.leadActor);
-
-
-        //  return boxOffice == movie.boxOffice && Objects.equals(id, movie.id) &&
-        //         Objects.equals(name, movie.name) &&
-        //        Objects.equals(releaseDate, movie.releaseDate) &&
-        //      Objects.equals(leadActor, movie.leadActor) &&
-        //     Objects.equals(boxOffice, movie.boxOffice);
     }
 
     @Override

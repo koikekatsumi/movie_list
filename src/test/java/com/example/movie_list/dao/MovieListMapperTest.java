@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -32,11 +33,27 @@ class MovieListMapperTest {
         assertThat(movies)
                 .hasSize(4)
                 .contains(
-                        new Movie(1, "ホーム　アローン", LocalDate.of(1991, 6, 22), "マコーレ カルキン", 476684675),
+                        new Movie(1, "ホーム　アローン", LocalDate.of(1991, 06, 22), "マコーレ　カルキン", 476684675),
                         new Movie(2, "タイタニック", LocalDate.of(1997, 12, 20), "レオナルド　ディカプリオ", 658532551),
-                        new Movie(3, "メリーに首ったけ", LocalDate.of(1999, 1, 30), "キャメロン　ディアス", 369884651),
-                        new Movie(4, "バック　トゥ　ザ　フューチャー", LocalDate.of(1985, 12, 7), "マイケル　J　フォックス", 210609762)
+                        new Movie(3, "メリーに首ったけ", LocalDate.of(1999, 01, 30), "キャメロン　ディアス", 369884651),
+                        new Movie(4, "バック　トゥ　ザ　フューチャー", LocalDate.of(1985, 12, 07), "マイケル　J　フォックス", 210609762)
                 );
     }
 
+    @Test
+    @DataSet(value = "datasets/movies.yml")
+    @Transactional
+    void 指定したIDの映画リストが取得できること() {
+        Optional<Movie> actual = movieListMapper.findById(1);
+        Movie movie = new Movie(1, "ホーム　アローン", LocalDate.of(1991, 06, 22), "マコーレ　カルキン", 476684675);
+        assertThat(actual.get()).isEqualTo(new Movie(1, "ホーム　アローン", LocalDate.of(1991, 06, 22), "マコーレ　カルキン", 476684675));
+    }
+
+    @Test
+    @DataSet(value = "datasets/movies.yml")
+    @Transactional
+    void 存在しないIDを指定した場合は空のOptionalが返ること() {
+        Optional<Movie> movies = movieListMapper.findById(100);
+        assertThat(movies).isEmpty();
+    }
 }

@@ -24,10 +24,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     annotationProcessor 'org.projectlombok:lombok:1.18.26'
     runtimeOnly 'com.mysql:mysql-connector-j'
-    implementation 'com.github.database-rider:rider-spring:1.42.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'com.github.database-rider:rider-spring:1.42.0'
 }
 
 tasks.named('test') {
