@@ -45,8 +45,9 @@ class MovieListMapperTest {
     @Transactional
     void 指定したIDの映画リストが取得できること() {
         Optional<Movie> actual = movieListMapper.findById(1);
-        Movie movie = new Movie(1, "ホーム　アローン", LocalDate.of(1991, 06, 22), "マコーレ　カルキン", 476684675);
-        assertThat(actual.get()).isEqualTo(new Movie(1, "ホーム　アローン", LocalDate.of(1991, 06, 22), "マコーレ　カルキン", 476684675));
+        Movie expected = new Movie(1, "ホーム　アローン", LocalDate.of(1991, 6, 22), "マコーレ　カルキン", 476684675);
+        assertThat(actual).isPresent();
+        assertThat(actual.get()).isEqualTo(expected);
     }
 
     @Test
