@@ -19,3 +19,8 @@ movies:
     release_date: '1985-12-07'
     lead_actor: "マイケル　J　フォックス"
     box_office: 210609762
+  - id: 5
+    name: "ターミネーター"
+    release_date: '1985-08-07'
+    lead_actor: "アーノルド　シュワルツネガー"
+    box_office: 503030035

@@ -1,7 +1,7 @@
 movies:
   - id: 1
-    name: "ホーム　アローン"
-    release_date: '1991-06-22'
+    name: "ホーム　アローン2"
+    release_date: '1995-05-02'
     lead_actor: "マコーレ　カルキン"
     box_office: 476684675
   - id: 2
