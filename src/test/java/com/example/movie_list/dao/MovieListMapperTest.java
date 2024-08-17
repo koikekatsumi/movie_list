@@ -2,12 +2,12 @@ package com.example.movie_list.dao;
 
 import com.example.movie_list.entity.Movie;
 import com.github.database.rider.core.api.dataset.DataSet;
+import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.spring.api.DBRider;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -19,12 +19,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DBRider
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@ActiveProfiles("test")
 class MovieListMapperTest {
 
     @Autowired
     private MovieListMapper movieListMapper;
 
+    //READ機能のDBテスト
     @Test
     @DataSet(value = "datasets/movies.yml")
     @Transactional
@@ -56,5 +56,37 @@ class MovieListMapperTest {
     void 存在しないIDを指定した場合は空のOptionalが返ること() {
         Optional<Movie> movies = movieListMapper.findById(100);
         assertThat(movies).isEmpty();
+    }
+
+    //POST機能のDBテスト
+    @Test
+    @DataSet(value = "datasets/movies.yml")
+    @ExpectedDataSet(value = "datasets/expectedInsertmovies.yml", ignoreCols = "id")
+    @Transactional
+    void 新規の映画リストが正常に登録できること() {
+        Movie newMovie = new Movie("ターミネーター", LocalDate.of(1985, 8, 7), "アーノルド　シュワルツネガー", 503030035);
+        movieListMapper.insert(newMovie);
+        Optional<Movie> insertMovie = movieListMapper.findById(newMovie.getId());
+        assertThat(insertMovie).isNotEmpty();
+    }
+
+    //UPDATE機能のDBテスト
+    @Test
+    @DataSet(value = "datasets/movies.yml")
+    @ExpectedDataSet(value = "datasets/expectedUpdatedmovies.yml")
+    @Transactional
+    void 存在する映画リストを更新すること() {
+        Movie movie = new Movie(1, "ホーム　アローン2", LocalDate.of(1995, 05, 02), "マコーレ　カルキン", 476684675);
+        movieListMapper.update(movie);
+    }
+
+    //DELETE機能のDBテスト
+    @Test
+    @DataSet(value = "datasets/movies.yml")
+    @ExpectedDataSet(value = "datasets/expectedDeletemovies.yml")
+    void 指定したIDの映画リストが正常に削除できること() {
+        movieListMapper.delete(1);
+        List<Movie> deletemovie = movieListMapper.findAll();
+        assertThat(deletemovie).hasSize(3);
     }
 }

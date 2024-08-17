@@ -1,9 +1,4 @@
 movies:
-  - id: 1
-    name: "ホーム　アローン"
-    release_date: '1991-06-22'
-    lead_actor: "マコーレ　カルキン"
-    box_office: 476684675
   - id: 2
     name: "タイタニック"
     release_date: '1997-12-20'
@@ -19,3 +14,4 @@ movies:
     release_date: '1985-12-07'
     lead_actor: "マイケル　J　フォックス"
     box_office: 210609762
+
