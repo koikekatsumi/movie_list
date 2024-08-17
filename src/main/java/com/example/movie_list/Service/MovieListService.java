@@ -24,7 +24,7 @@ public class MovieListService {
         return movieListMapper.findAll();
     }
 
-    public Movie findMovie(int id) {
+    public Movie findById(int id) {
         return movieListMapper.findById(id)
                 .orElseThrow(() -> new MovieListNotFoundException("Movie with id " + id + " not found"));
     }
@@ -50,7 +50,7 @@ public class MovieListService {
     public Movie update(int id, String name, LocalDate releaseDate, String leadActor, int boxOffice) {
         Movie existingMovie = movieListMapper.findById(id)
                 .orElseThrow(() -> new MovieListNotFoundException("Movie with id " + id + " not found"));
-        
+
         Optional<Movie> duplicatedMovie = movieListMapper.findByName(name);
         duplicatedMovie.ifPresent(movie -> {
             if (!movie.getId().equals(id)) {

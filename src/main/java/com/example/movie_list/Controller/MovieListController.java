@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 public class MovieListController {
@@ -26,9 +27,17 @@ public class MovieListController {
         this.movieListService = movieListService;
     }
 
+    @GetMapping("/movies")
+    public ResponseEntity<List<Movie>> getAllMovies() {
+        List<Movie> movie = movieListService.findAll();
+        return ResponseEntity.ok(movie);
+    }
+
+
     @GetMapping("/movies/{id}")
-    public Movie findMovie(@Valid @PathVariable("id") int id) {
-        return movieListService.findMovie(id);
+    public ResponseEntity<Movie> findById(@PathVariable("id") Integer id) {
+        Movie movie = movieListService.findById(id);
+        return ResponseEntity.ok(movie);
     }
 
     @PostMapping("/movies")
