@@ -17,7 +17,7 @@ public interface MovieListMapper {
     List<Movie> findAll();
 
     @Select("SELECT * FROM movies WHERE id =#{id}")
-    Optional<Movie> findById(int id);
+    Optional<Movie> findById(Integer id);
 
     @Select("SELECT * FROM movies WHERE name = #{name}")
     Optional<Movie> findByName(String name);
